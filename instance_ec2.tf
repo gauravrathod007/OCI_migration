@@ -1,9 +1,3 @@
-provider "aws" {
-  region     = "us-east-1"
-  
-  
-}
-
 #Create a new EC2 launch configuration
 resource "aws_instance" "ec2_public" {
   ami                         = var.ami_id
