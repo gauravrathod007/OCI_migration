@@ -1,16 +1,16 @@
 pipeline {
 
- 
+
 
     parameters {
         booleanParam(name: 'autoApprove', defaultValue: false, description: 'Automatically run apply after generating plan?')
-    } 
+    }
     environment {
         AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
     }
 
- 
+
 
    agent  any
     stages {
@@ -19,13 +19,13 @@ pipeline {
                  script{
                         dir("terraform")
                         {
-                            git "https://github.com/gauravrathod007/OCI_migration.git"
+                            git "https://github.com/gauravrathod007/test_migration_8thJune.git"
                         }
                     }
                 }
             }
 
- 
+
 
         stage('Plan') {
             steps {
@@ -41,7 +41,7 @@ pipeline {
                }
            }
 
- 
+
 
            steps {
                script {
@@ -52,7 +52,7 @@ pipeline {
            }
        }
 
- 
+
 
         stage('Apply') {
             steps {
@@ -61,6 +61,7 @@ pipeline {
         }
     }
 
- 
+
 
   }
+
