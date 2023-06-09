@@ -1,10 +1,13 @@
-provider "aws" {
-  region     = "us-east-1"
-  access_key = "AKIAVP3JXD3FUFLIZMPH"                              #AKIAVP3JXD3FUFLIZMPH
-  secret_key = "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"          #2+NHsKCDyGvHDOLefjYHsDzfsw+nESHFvu2N8irT
+# --- root/main.tf ---
+
+module "networking" {
+  source       = "./networking"
+  vpc_cidr     = "10.0.0.0/16"
+  public_cidrs = ["10.0.1.0/24", "10.0.2.0/24"]
 }
 
-resource "aws_instance" "gaurav" {
-  ami                     = "ami-0715c1897453cabd1"
-  instance_type           = "t2.micro"
+module "compute" {
+  source        = "./compute"
+  web_sg        = module.networking.web_sg
+  public_subnet = module.networking.public_subnet
 }
